@@ -5,6 +5,16 @@
 **Status**: Draft
 **Input**: User description: "Support for Overdue Todo Items - Users need a clear, visual way to identify which todos have not been completed by their due date."
 
+## Clarifications
+
+### Session 2025-12-12
+
+- Q: What visual method should be used to distinguish overdue todos? → A: Icon/badge indicator (add a warning icon or "OVERDUE" badge next to the todo)
+- Q: When should the overdue status be calculated and updated? → A: Calculate on page load only (user must refresh to see updated overdue status)
+- Q: Should the overdue sorting preference be remembered? → A: Remember preference (save to localStorage, persist across sessions)
+- Q: When should the display switch from days to weeks to months? → A: Auto-switch units: <7 days show days, 7-29 days show weeks, 30+ days show months
+- Q: Where should the overdue badge/icon be positioned in the todo card? → A: Next to checkbox (vertically aligned with checkbox on left side)
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Visual Identification of Overdue Items (Priority: P1)
@@ -17,8 +27,8 @@ Users can visually distinguish overdue todos from other todos in their list at a
 
 **Acceptance Scenarios**:
 
-1. **Given** I have a todo with a due date in the past and the todo is not completed, **When** I view my todo list, **Then** the overdue todo is visually distinguished from other todos (different color, styling, or indicator)
-2. **Given** I have a todo with a due date of today, **When** I view my todo list, **Then** the todo is NOT marked as overdue
+1. **Given** I have a todo with a due date in the past and the todo is not completed, **When** I view my todo list, **Then** the overdue todo displays a warning icon or "OVERDUE" badge
+2. **Given** I have a todo with a due date of today, **When** I view my todo list, **Then** the todo is NOT marked as overdue and displays no overdue indicator
 3. **Given** I have a todo with a due date in the past but the todo is marked as completed, **When** I view my todo list, **Then** the todo is NOT marked as overdue (completed tasks are not overdue)
 4. **Given** I have a todo with no due date, **When** I view my todo list, **Then** the todo is NOT marked as overdue
 5. **Given** I have a todo with a future due date, **When** I view my todo list, **Then** the todo is NOT marked as overdue
@@ -37,8 +47,9 @@ Users can see how long a todo has been overdue with clear, human-readable text (
 
 1. **Given** I have an overdue todo that is 1 day past its due date, **When** I view the todo, **Then** I see text indicating "1 day overdue"
 2. **Given** I have an overdue todo that is 5 days past its due date, **When** I view the todo, **Then** I see text indicating "5 days overdue"
-3. **Given** I have an overdue todo that is 2 weeks past its due date, **When** I view the todo, **Then** I see text indicating "2 weeks overdue" or equivalent
-4. **Given** I have a todo that is due today but not completed, **When** I view the todo, **Then** I do NOT see overdue duration text (only marked as due today)
+3. **Given** I have an overdue todo that is 14 days past its due date, **When** I view the todo, **Then** I see text indicating "2 weeks overdue"
+4. **Given** I have an overdue todo that is 45 days past its due date, **When** I view the todo, **Then** I see text indicating overdue in months (e.g., "1 month overdue")
+5. **Given** I have a todo that is due today but not completed, **When** I view the todo, **Then** I do NOT see overdue duration text (only marked as due today)
 
 ---
 
@@ -55,12 +66,13 @@ Users can optionally sort their todo list to show overdue items at the top, maki
 1. **Given** I have a mix of overdue, current, and future todos, **When** I enable overdue sorting, **Then** all overdue todos appear at the top of my list before other todos
 2. **Given** I have multiple overdue todos, **When** I enable overdue sorting, **Then** overdue todos are sorted by how overdue they are (most overdue first)
 3. **Given** I enable overdue sorting, **When** I complete an overdue todo, **Then** it is removed from the top of the list (as it's no longer overdue)
+4. **Given** I have enabled overdue sorting, **When** I refresh the page or return later, **Then** the sorting preference is maintained
 
 ---
 
 ### Edge Cases
 
-- What happens when a todo becomes overdue while the user is viewing the list (date changes from today to yesterday at midnight)?
+- What happens when a todo becomes overdue while the user is viewing the list (date changes from today to yesterday at midnight)? User must refresh page to see updated status.
 - How does the system handle todos with due dates set to midnight vs end of day?
 - What happens when a user's system clock is incorrect?
 - How are overdue todos displayed when the user has no overdue items?
@@ -71,13 +83,15 @@ Users can optionally sort their todo list to show overdue items at the top, maki
 ### Functional Requirements
 
 - **FR-001**: System MUST compare each todo's due date with the current date to determine if it is overdue
-- **FR-002**: System MUST visually distinguish overdue todos from non-overdue todos in the todo list
-- **FR-003**: System MUST NOT mark completed todos as overdue, regardless of their due date
-- **FR-004**: System MUST NOT mark todos without a due date as overdue
-- **FR-005**: System MUST consider a todo overdue only when the due date is in the past (before today)
-- **FR-006**: System MUST calculate and display the duration a todo has been overdue in human-readable format (days, weeks)
-- **FR-007**: System MUST update overdue status in real-time or on page load/refresh to reflect current date
-- **FR-008**: System MUST provide an option to sort todos with overdue items appearing first
+- **FR-002**: System MUST display a warning icon or badge indicator next to overdue todos to visually distinguish them from non-overdue todos
+- **FR-003**: System MUST position the overdue badge/icon next to the checkbox, vertically aligned on the left side of the todo card
+- **FR-004**: System MUST NOT mark completed todos as overdue, regardless of their due date
+- **FR-005**: System MUST NOT mark todos without a due date as overdue
+- **FR-006**: System MUST consider a todo overdue only when the due date is in the past (before today)
+- **FR-007**: System MUST calculate and display the duration a todo has been overdue in human-readable format, automatically switching units: less than 7 days show days, 7-29 days show weeks, 30+ days show months
+- **FR-008**: System MUST calculate overdue status on page load/refresh to reflect current date
+- **FR-009**: System MUST provide an option to sort todos with overdue items appearing first
+- **FR-010**: System MUST persist the overdue sorting preference across sessions
 
 ### Key Entities
 
@@ -100,6 +114,8 @@ Users can optionally sort their todo list to show overdue items at the top, maki
 - Completed todos are never considered overdue, even if completed after their due date
 - The system uses client-side date/time for overdue calculations (assumes user's local timezone)
 - Visual distinction will follow the existing UI theme and design system (Halloween theme with orange/purple accents)
-- Overdue indicator will use existing danger/warning colors from the design system (red tones)
-- Human-readable overdue duration will use common time units (days, weeks, months) rather than precise hours/minutes
+- Overdue indicator will use a warning icon or "OVERDUE" badge displayed next to the checkbox on the left side of the todo card
+- Icon/badge will use existing danger/warning colors from the design system (red tones)
+- Human-readable overdue duration will auto-switch units based on duration: <7 days use days, 7-29 days use weeks, 30+ days use months
 - Default sorting (newest first) remains unchanged unless user explicitly enables overdue sorting
+- Overdue sorting preference is saved to browser localStorage and persists across sessions
