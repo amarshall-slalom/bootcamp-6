@@ -12,8 +12,8 @@ Implementation tasks for adding overdue visual indicators, duration text, and op
 
 **Goal**: Create project structure for utilities and tests
 
-- [ ] T001 Create utils directory in packages/frontend/src/
-- [ ] T002 Create __tests__ directory in packages/frontend/src/utils/
+- [X] T001 Create utils directory in packages/frontend/src/
+- [X] T002 Create __tests__ directory in packages/frontend/src/utils/
 
 ## Phase 2: Foundational Tasks
 
@@ -29,38 +29,38 @@ _(This phase is empty because the feature has no shared dependencies between use
 
 ### Tests First (TDD - RED)
 
-- [ ] T003 [P] [US1] Write test for isOverdue() with overdue incomplete todo in packages/frontend/src/utils/__tests__/dateUtils.test.js
-- [ ] T004 [P] [US1] Write test for isOverdue() with future due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
-- [ ] T005 [P] [US1] Write test for isOverdue() with today's due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
-- [ ] T006 [P] [US1] Write test for isOverdue() with null due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
-- [ ] T007 [P] [US1] Write test for isOverdue() with completed overdue todo in packages/frontend/src/utils/__tests__/dateUtils.test.js
-- [ ] T008 [US1] Run tests to verify RED state (all fail) for packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T003 [P] [US1] Write test for isOverdue() with overdue incomplete todo in packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T004 [P] [US1] Write test for isOverdue() with future due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T005 [P] [US1] Write test for isOverdue() with today's due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T006 [P] [US1] Write test for isOverdue() with null due date in packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T007 [P] [US1] Write test for isOverdue() with completed overdue todo in packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T008 [US1] Run tests to verify RED state (all fail) for packages/frontend/src/utils/__tests__/dateUtils.test.js
 
 ### Implementation (TDD - GREEN)
 
-- [ ] T009 [US1] Create dateUtils.js with isOverdue() function using native Date API in packages/frontend/src/utils/dateUtils.js
-- [ ] T010 [US1] Implement date-only comparison logic (reset hours to midnight) in packages/frontend/src/utils/dateUtils.js
-- [ ] T011 [US1] Run tests to verify GREEN state (all pass) for packages/frontend/src/utils/__tests__/dateUtils.test.js
+- [X] T009 [US1] Create dateUtils.js with isOverdue() function using native Date API in packages/frontend/src/utils/dateUtils.js
+- [X] T010 [US1] Implement date-only comparison logic (reset hours to midnight) in packages/frontend/src/utils/dateUtils.js
+- [X] T011 [US1] Run tests to verify GREEN state (all pass) for packages/frontend/src/utils/__tests__/dateUtils.test.js
 
 ### Component Tests (TDD - RED)
 
-- [ ] T012 [P] [US1] Write test for badge appearing on overdue incomplete todo in packages/frontend/src/components/__tests__/TodoCard.test.js
-- [ ] T013 [P] [US1] Write test for badge NOT appearing on completed overdue todo in packages/frontend/src/components/__tests__/TodoCard.test.js
-- [ ] T014 [P] [US1] Write test for badge NOT appearing on future due date in packages/frontend/src/components/__tests__/TodoCard.test.js
-- [ ] T015 [P] [US1] Write test for badge NOT appearing when no due date in packages/frontend/src/components/__tests__/TodoCard.test.js
-- [ ] T016 [US1] Run tests to verify RED state for packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T012 [P] [US1] Write test for badge appearing on overdue incomplete todo in packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T013 [P] [US1] Write test for badge NOT appearing on completed overdue todo in packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T014 [P] [US1] Write test for badge NOT appearing on future due date in packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T015 [P] [US1] Write test for badge NOT appearing when no due date in packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T016 [US1] Run tests to verify RED state for packages/frontend/src/components/__tests__/TodoCard.test.js
 
 ### Component Implementation (TDD - GREEN)
 
-- [ ] T017 [US1] Import isOverdue from dateUtils in packages/frontend/src/components/TodoCard.js
-- [ ] T018 [US1] Add overdue calculation in TodoCard component in packages/frontend/src/components/TodoCard.js
-- [ ] T019 [US1] Add conditional rendering for warning badge/icon next to checkbox in packages/frontend/src/components/TodoCard.js
-- [ ] T020 [US1] Add CSS styling for overdue badge with danger color in packages/frontend/src/components/TodoCard.js
-- [ ] T021 [US1] Run tests to verify GREEN state for packages/frontend/src/components/__tests__/TodoCard.test.js
+- [X] T017 [US1] Import isOverdue from dateUtils in packages/frontend/src/components/TodoCard.js
+- [X] T018 [US1] Add overdue calculation in TodoCard component in packages/frontend/src/components/TodoCard.js
+- [X] T019 [US1] Add conditional rendering for warning badge/icon next to checkbox in packages/frontend/src/components/TodoCard.js
+- [X] T020 [US1] Add CSS styling for overdue badge with danger color in packages/frontend/src/components/TodoCard.js
+- [X] T021 [US1] Run tests to verify GREEN state for packages/frontend/src/components/__tests__/TodoCard.test.js
 
 ### Refactor
 
-- [ ] T022 [US1] Review and refactor code for clarity and DRY principle in packages/frontend/src/utils/dateUtils.js and packages/frontend/src/components/TodoCard.js
+- [X] T022 [US1] Review and refactor code for clarity and DRY principle in packages/frontend/src/utils/dateUtils.js and packages/frontend/src/components/TodoCard.js
 
 ## Phase 4: User Story 2 - Overdue Duration Text (P2)
 
